@@ -116,9 +116,8 @@ wine = datasets.load_wine()
 X = wine.data
 print(X)
 y = wine.target
-classes =["class_0", "class_1", "classs_2"]
+#classes =["class_0", "class_1", "class_2"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2)
-
 # use standard scaler
 # X_train = standardScaler.fit_transform(X_train)
 # X_test = standardScaler.transform(X_test)
