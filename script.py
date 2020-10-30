@@ -12,17 +12,17 @@ from sklearn.preprocessing import scale
 
 standardScaler = StandardScaler()
 
-"""
+
 # KMeans
-# why does the accuracy go from 7% to 90% ?!?!?
+
 bc = datasets.load_breast_cancer()
-x = scale(bc.data)  # scaling data, much better
+x = scale(bc.data)
 print(x)
 y = bc.target
 x_train, x_test, y_train, y_test = train_test_split(x, y,test_size=.2)
 # create model
 model = KMeans(n_clusters=2, random_state=0)
-model.fit(x_train)     # clustering only trains labels
+model.fit(x_train)         # clustering only trains labels, no y
 
 predictions = model.predict(x_test)
 labels = model.labels_
@@ -30,8 +30,8 @@ print("Labels: ", labels)
 print("Predictions: ", predictions)
 accuracy = accuracy_score(y_test, predictions)
 print("Accuracy: ", accuracy)
-# print(pd.crosstab(y_train, labels))
-"""
+print(pd.crosstab(y_train, labels))
+
 
 
 """
@@ -112,6 +112,7 @@ Attributes of wine dataset
 12)OD280/OD315 of diluted wines
 13)Proline
 """
+"""
 wine = datasets.load_wine()
 X = wine.data
 print(X)
@@ -129,3 +130,4 @@ predictions = model.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
 print("Predictions: ", predictions)
 print("Accuracy: ", accuracy)
+"""
