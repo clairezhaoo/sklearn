@@ -17,12 +17,15 @@ standardScaler = StandardScaler()
 
 
 wine = pd.read_csv("winequality-white.csv", sep=";")
+print(wine.info())
 bins = (2, 6.5, 8)
-group_names = ["bad", "good"]
+group_names = [0, 1]   # 0 is bad, 1 is good
 wine["quality"] = pd.cut(wine["quality"], bins = bins, labels = group_names)
+wine["quality"].unique()
 label_quality = LabelEncoder()
 wine["quality"] = label_quality.fit_transform(wine["quality"])
 sns.countplot(wine["quality"])
+plt.show()
 
 """
 # KMeans
