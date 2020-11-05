@@ -9,12 +9,23 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import scale
+from sklearn import metrics
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 standardScaler = StandardScaler()
 
 
-# KMeans
+wine = pd.read_csv("winequality-white.csv", sep=";")
+bins = (2, 6.5, 8)
+group_names = ["bad", "good"]
+wine["quality"] = pd.cut(wine["quality"], bins = bins, labels = group_names)
+label_quality = LabelEncoder()
+wine["quality"] = label_quality.fit_transform(wine["quality"])
+sns.countplot(wine["quality"])
 
+"""
+# KMeans
 bc = datasets.load_breast_cancer()
 x = scale(bc.data)
 print(x)
@@ -31,7 +42,8 @@ print("Predictions: ", predictions)
 accuracy = accuracy_score(y_test, predictions)
 print("Accuracy: ", accuracy)
 print(pd.crosstab(y_train, labels))
-
+bench_k_means(model, "1", x)
+"""
 
 
 """
