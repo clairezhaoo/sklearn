@@ -1,7 +1,9 @@
 from sklearn import datasets
+from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from sklearn.metrics import confusion_matrix, classification_report
 from sklearn import neighbors,metrics
 from sklearn.preprocessing import LabelEncoder
 from sklearn import svm
@@ -17,15 +19,33 @@ standardScaler = StandardScaler()
 
 
 wine = pd.read_csv("winequality-white.csv", sep=";")
-print(wine.info())
 bins = (2, 6.5, 8)
 group_names = [0, 1]   # 0 is bad, 1 is good
 wine["quality"] = pd.cut(wine["quality"], bins = bins, labels = group_names)
 wine["quality"].unique()
 label_quality = LabelEncoder()
 wine["quality"] = label_quality.fit_transform(wine["quality"])
-sns.countplot(wine["quality"])
-plt.show()
+#sns.countplot(wine["quality"])
+# plt.show()
+# separate features and quality
+X = wine.drop("quality", axis=1)
+y = wine["quality"]
+# train and test the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2)
+# scaling
+X_train = standardScaler.fit_transform(X_train)
+X_test = standardScaler.transform(X_test)
+# RANDOM FOREST CLASSSIFIER
+rfc = RandomForestClassifier(n_estimators=200)
+rfc.fit(X_train, y_train)
+pred_rfc = rfc.predict(X_test)
+print(classification_report(y_test, pred_rfc))
+print(confusion_matrix(y_test, pred_rfc))
+
+clf = svm.SVC()
+clf.fit(X_train, y_train)
+pred_clf = clf.redict(X_test)
+
 
 """
 # KMeans
